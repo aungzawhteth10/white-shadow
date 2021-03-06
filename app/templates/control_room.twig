@@ -1,0 +1,64 @@
+{% include 'base.html' %}
+<script >
+	var division = {
+	    view:"form",
+	    id:"division_form",
+	    scroll:"y", 
+	    autoheight:true,
+	    borderless:true,
+	    elements:[
+			{rows:[
+		        {cols:[
+		        	{},
+		            {view:"button", id:"division_add", value:"ပြည်နယ်နှင့်တိုင်းဒေသကြီးအသစ်ထည့်ရန်", css:"webix_primary", height:50, width:350},
+		        	{}
+		        ]},
+		        {cols:[
+		        	{},
+		            {view:"button", id:"detail_add", value:"အသေးစိတ်အချက်အလက်အသစ်ထည့်ရန်", css:"webix_primary", height:50, width:350},
+		        	{}
+		        ]},
+			]},
+    	]
+    };
+    var to_back = {view:"button", id:"to_back", value:"ပြန်သွားမည်", css:"webix_primary", height:50, width:100};
+    var footer = {view:"label", label:"<footer style='text-align:center;>'>white-shadow</footer>"};
+	webix.ready(function () {
+		webix.ui(
+		{rows:[
+			division,
+			to_back,
+			footer,
+			{height:75}
+		]}
+		);
+		logic.init();
+	});
+	var logic = {
+		init: function() {
+			logic.auth();
+			$$("division_add").attachEvent("onItemClick", logic.division_add);
+			$$("to_back").attachEvent("onItemClick", logic.to_back);
+			$$("detail_add").attachEvent("onItemClick", logic.detail_add);
+		},
+		division_add: function() {
+			var _url = webix.storage.session.get("url");
+			location.href= _url + "control_division_add";
+		},
+		detail_add: function() {
+			var _url = webix.storage.session.get("url");
+			location.href= _url + "control_detail_add_choice";
+		},
+		auth: function() {
+			var auth_key = webix.storage.session.get("auth_key") || "";
+			if (auth_key != "@^apo9324kl.w;mmshh;fji@#asdf423$^&^&%$$45852$$#") {
+				var _url = webix.storage.session.get("url");
+				location.href= _url + "auth";
+			}
+		},
+		to_back: function() {
+			var _url = webix.storage.session.get("url");
+			location.href= _url;
+		}
+	}	      
+</script>
