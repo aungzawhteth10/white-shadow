@@ -1,0 +1,7 @@
+index:
+   path: /
+   controller: App\Api\IndexController::index
+
+divisionList:
+   path: /divisionList
+   controller: App\Api\ApiDetail::getDivisionList
