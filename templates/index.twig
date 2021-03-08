@@ -7,11 +7,11 @@
 	    autoheight:true,
 	    borderless:true,
 	    elements:[
-{% for no in 1..14 %}
-			{id:"row_{{no}}", hidden:true, rows:[
+{% for division in divisionList %}
+			{id:"row_{{division.division}}", rows:[
 		        {cols:[
 		        	{},
-		            {view:"button", id:"division_{{no}}", value:"", css:"webix_primary", height:50, width:300, click:function() {logic.detail({{no}});}},
+		            {view:"button", id:"division_{{division.division}}", value:"{{division.division}}", css:"webix_primary", height:50, width:300, click:function() {logic.detail({{division.division}});}},
 		        	{}
 		        ]},
 			]},
@@ -38,7 +38,7 @@
 	var logic = {
 		init: function() {
 			logic.setUrl();
-			logic.dataload();
+			// logic.dataload();
 			$$("to_control_room").attachEvent("onItemClick", logic.to_control_room);
 		},
 		setUrl: function() {

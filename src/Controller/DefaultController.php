@@ -1,10 +1,8 @@
 <?php
-namespace App\Api;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; 
+namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-class ApiDetail 
+class DefaultController extends AbstractController
 {
    protected $pdo;
    public function __construct()
@@ -18,7 +16,7 @@ class ApiDetail
 		    echo 'Connection failed: ' . $e->getMessage();
 		}
    }
-   public function getDivisionList()
+   public function index()
    {
 		$sql = 'SELECT division ' .
 				'FROM division_list';
@@ -28,7 +26,15 @@ class ApiDetail
 		// 接続を閉じる
 	    $this->pdo = null;
 	    $stmt = null;
-	    return new Response(json_encode($row, JSON_UNESCAPED_UNICODE));
+	    $result = [];
+	    foreach ($row as $key => $value) {
+	    	$result[] = [
+	    		'division' => $value['division'],
+	    	];
+	    }
+	    var_dump($result);
+	    // return new Response('');
+	    return $this->render('index.twig', ['divisionList' => $result]);
    }
    public function quantityLoad($request, $response)
    {
